@@ -18,7 +18,7 @@ class PlotLosses():
                  metric2title={},
                  series_fmt={'training': '{}', 'validation':'val_{}'},
                  validation_fmt="val_{}",
-                 plot_extrema=True,
+                 plot_extrema=False,  # default is False to prevent blinking
                  skip_first=2,
                  extra_plots=[],
                  fig_path=None,

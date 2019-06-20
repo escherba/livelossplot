@@ -59,7 +59,7 @@ def draw_plot(logs, metrics, figsize=None, max_epoch=None,
 
         plt.title(metric2title.get(metric, metric))
         plt.xlabel('epoch')
-        plt.legend(loc='center right')
+        plt.legend()
 
     for i, extra_plot in enumerate(extra_plots):
         plt.subplot(max_rows, max_cols, i + len(metrics) + 1)

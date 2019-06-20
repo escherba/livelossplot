@@ -55,7 +55,7 @@ class LossSubplot(BaseSubplot):
 
         plt.title(self.title)
         plt.xlabel('epoch')
-        plt.legend(loc='center right')
+        plt.legend()
 
 
 class Plot1D(BaseSubplot):
@@ -73,7 +73,7 @@ class Plot1D(BaseSubplot):
         plt.plot(self.X, self.Y, 'r.', label="Ground truth")
         plt.plot(self.X, self.predict(self.model, self.X), '-', label="Model")
         plt.title("Prediction")
-        plt.legend(loc='lower right')
+        plt.legend()
 
 
 class Plot2d(BaseSubplot):
