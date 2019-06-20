@@ -51,7 +51,8 @@ class LossSubplot(BaseSubplot):
 
             if len(serie_metric_logs) > 0:
                 xs, ys = zip(*serie_metric_logs)
-                plt.plot(xs, ys, label=serie_label)
+                lbl = "{}: {:.4f}".format(lbl, ys[-1])
+                plt.plot(xs, ys, label=lbl)
 
         plt.title(self.title)
         plt.xlabel('epoch')

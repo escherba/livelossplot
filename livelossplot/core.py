@@ -24,6 +24,7 @@ def draw_plot(logs, metrics, figsize=None, max_epoch=None,
               series_fmt={'training': '{}', 'validation':'val_{}'},
               metric2title={},
               skip_first=2,
+              yscale=None,
               extra_plots=[],
               fig_path=None):
     clear_output(wait=True)
@@ -41,6 +42,9 @@ def draw_plot(logs, metrics, figsize=None, max_epoch=None,
     for metric_id, metric in enumerate(metrics):
         plt.subplot(max_rows, max_cols, metric_id + 1)
 
+        if metric_id == 0 and yscale is not None:
+            plt.yscale(yscale)
+
         if max_epoch is not None:
             plt.xlim(1 + skip, max_epoch)
 
@@ -55,7 +59,8 @@ def draw_plot(logs, metrics, figsize=None, max_epoch=None,
 
             if len(serie_metric_logs) > 0:
                 xs, ys = zip(*serie_metric_logs)
-                plt.plot(xs, ys, label=serie_label)
+                lbl = "{}".format("{}: {:.4f}".format(serie_label, ys[-1]))
+                plt.plot(xs, ys, label=lbl)
 
         plt.title(metric2title.get(metric, metric))
         plt.xlabel('epoch')

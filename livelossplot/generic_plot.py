@@ -21,6 +21,7 @@ class PlotLosses():
                  plot_extrema=False,  # default is False to prevent blinking
                  skip_first=2,
                  extra_plots=[],
+                 yscale='log',
                  fig_path=None,
                  tensorboard_dir=None,
                  target=MATPLOTLIB_TARGET):
@@ -38,6 +39,7 @@ class PlotLosses():
         self.base_metrics = None
         self.metrics_extrema = None
         self.plot_extrema = plot_extrema
+        self.yscale = yscale
         self.skip_first = skip_first
         self.target = target
         self._validate_target()
@@ -60,15 +62,14 @@ class PlotLosses():
 
     def set_metrics(self, metrics):
         self.base_metrics = metrics
-        if self.plot_extrema:
-            self.metrics_extrema = {
-                ftm.format(metric): {
-                    'min': float('inf'),
-                    'max': -float('inf'),
-                }
-                for metric in metrics
-                for ftm in list(self.series_fmt.values())
+        self.metrics_extrema = {
+            ftm.format(metric): {
+                'min': float('inf'),
+                'max': -float('inf'),
             }
+            for metric in metrics
+            for ftm in list(self.series_fmt.values())
+        }
         if self.figsize is None:
             self.figsize = (
                 self.max_cols * self.cell_size[0],
@@ -113,8 +114,9 @@ class PlotLosses():
                       metric2title=self.metric2title,
                       skip_first=self.skip_first,
                       extra_plots=self.extra_plots,
+                      yscale=self.yscale,
                       fig_path=self.fig_path)
-            if self.metrics_extrema:
+            if self.plot_extrema:
                 print_extrema(self.logs,
                               self.base_metrics,
                               self.metrics_extrema,
